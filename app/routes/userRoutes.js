@@ -1,12 +1,12 @@
-var bodyParser  = require('body-parser');
-var User        = require('../models/user');
-var jwt         = require('jsonwebtoken');
-var config      = require('../../config');
-var verifyToken = require('../helpers/tokenHelper');
-var superSecret = config.secret;
+import bodyParser from 'body-parser';
+import User from '../models/user');
+import jwt  from 'jsonwebtoken');
+import config from '../../config');
+import verifyToken from '../helpers/tokenHelper');
+const superSecret = config.secret;
 
 
-module.exports = function(app, express) {
+function UserRoutes(app, express) {
 
 	var userRouter = express.Router();
 
@@ -182,3 +182,5 @@ module.exports = function(app, express) {
 
 	return userRouter;
 };
+
+export default UserRoutes;

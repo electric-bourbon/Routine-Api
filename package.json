@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "babel-node --presets es2015 ./server.js"
   },
   "engines": {
     "node": "4.3.1",
@@ -12,7 +12,10 @@
   },
   "author": "Matrix Peeps",
   "license": "ISC",
+
   "dependencies": {
+    "babel-cli": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
