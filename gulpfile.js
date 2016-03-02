@@ -9,6 +9,7 @@ var notify      = require('gulp-notify');
 var plumber     = require('gulp-plumber');
 var jshint      = require('gulp-jshint');
 var stylish     = require('jshint-stylish');
+var babel = require('gulp-babel');
 var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var browserify  = require('browserify');
@@ -22,6 +23,12 @@ gulp.task('babelify', function() {
   .pipe(source('app.js'))
   // .pipe(streamify(uglify()))
   .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('build', function() {
+return gulp.src('./server.js')
+.pipe(babel())
+.pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('hint:js', jsHint);
