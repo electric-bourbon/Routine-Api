@@ -1,9 +1,32 @@
-import bodyParser from 'body-parser';
-import User from '../models/user';
-import jwt from 'jsonwebtoken';
-import config from '../../config';
-import verifyToken from '../helpers/tokenHelper';
-const superSecret = config.secret;
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+var _user = require('../models/user');
+
+var _user2 = _interopRequireDefault(_user);
+
+var _jsonwebtoken = require('jsonwebtoken');
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+var _config = require('../../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var _tokenHelper = require('../helpers/tokenHelper');
+
+var _tokenHelper2 = _interopRequireDefault(_tokenHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var superSecret = _config2.default.secret;
 
 function UserRoutes(app, express) {
 
@@ -15,7 +38,7 @@ function UserRoutes(app, express) {
 	// create a user (accessed at POST http://localhost:8080/users)
 	.post(function (req, res, next) {
 
-		var user = new User(); // create a new instance of the User model
+		var user = new _user2.default(); // create a new instance of the User model
 		user.name = req.body.name; // set the users name (comes from the request)
 		user.username = req.body.username; // set the users username (comes from the request)
 		user.password = req.body.password; // set the users password (comes from the request)
@@ -40,7 +63,7 @@ function UserRoutes(app, express) {
 	userRouter.post('/login', function (req, res, next) {
 
 		// find the user
-		User.findOne({
+		_user2.default.findOne({
 			username: req.body.username
 		}).select('name username password email _id').exec(function (err, user) {
 
@@ -62,7 +85,7 @@ function UserRoutes(app, express) {
 				} else {
 					// if user is found and password is right
 					// create a token
-					var token = jwt.sign({
+					var token = _jsonwebtoken2.default.sign({
 						name: user.name,
 						id: user._id,
 						username: user.username
@@ -84,7 +107,7 @@ function UserRoutes(app, express) {
 
 	// route middleware to verify a token
 	userRouter.use('/users', function (req, res, next) {
-		verifyToken(req, res, next);
+		(0, _tokenHelper2.default)(req, res, next);
 	});
 
 	// test route to make sure everything is working
@@ -97,7 +120,7 @@ function UserRoutes(app, express) {
 	// ----------------------------------------------------
 	userRouter.route('/users').get(function (req, res, next) {
 
-		User.find({}, function (err, users) {
+		_user2.default.find({}, function (err, users) {
 			if (err) {
 				return next(err);
 			}
@@ -107,7 +130,7 @@ function UserRoutes(app, express) {
 	});
 
 	userRouter.route('/users/:user_id').get(function (req, res, next) {
-		User.findById(req.params.user_id, function (err, user) {
+		_user2.default.findById(req.params.user_id, function (err, user) {
 			if (!user) {
 				var notFound = new Error("User not found");
 				notFound.status = 404;
@@ -125,7 +148,7 @@ function UserRoutes(app, express) {
 
 	// update the user with this id
 	.put(function (req, res, next) {
-		User.findById(req.params.user_id, function (err, user) {
+		_user2.default.findById(req.params.user_id, function (err, user) {
 
 			if (err) {
 				next(err);
@@ -146,7 +169,7 @@ function UserRoutes(app, express) {
 			});
 		});
 	}).delete(function (req, res, next) {
-		User.remove({
+		_user2.default.remove({
 			_id: req.params.user_id
 		}, function (err, user) {
 
@@ -164,7 +187,7 @@ function UserRoutes(app, express) {
 	});
 	// route middleware to verify a token
 	userRouter.use('/me', function (req, res, next) {
-		verifyToken(req, res, next);
+		(0, _tokenHelper2.default)(req, res, next);
 	});
 	// api endpoint to get user information
 	userRouter.get('/me', function (req, res) {
@@ -174,4 +197,4 @@ function UserRoutes(app, express) {
 	return userRouter;
 }
 
-export default UserRoutes;
+exports.default = UserRoutes;

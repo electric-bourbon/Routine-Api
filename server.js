@@ -1,12 +1,14 @@
-var express    = require('express');
-var app        = express();
-var bodyParser = require('body-parser');
-var cors       = require('cors')
-var morgan     = require('morgan');
-var mongoose   = require('mongoose');
-var config     = require('./config');
-var path       = require('path');
-var moment     = require('moment');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors    from 'cors'
+import morgan  from 'morgan';
+import mongoose from 'mongoose';
+import config  from './config';
+import path    from 'path';
+import moment  from 'moment';
+// API ROUTES ------------------------
+import userRoute from'./app/routes/userRoutes';
+const  app        = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -28,8 +30,8 @@ mongoose.connect(config.database);
 // used for requests that our frontend will make
 app.use(express.static(__dirname + '/public'));
 
-// API ROUTES ------------------------
-var userRoutes = require('./app/routes/userRoutes')(app, express);
+
+const userRoutes = userRoute(app, express);
 
 app.use('/api', userRoutes);
 

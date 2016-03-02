@@ -26,8 +26,10 @@ gulp.task('babelify', function() {
 });
 
 gulp.task('build', function() {
-return gulp.src('./**/*.js')
-.pipe(babel())
+return gulp.src(['./**/*.js', '!./node_modules/**/*.js', '!./dist/**/*.js'])
+.pipe(babel({
+            presets: ['es2015']
+        }))
 .pipe(gulp.dest('./dist/'));
 });
 
