@@ -1,9 +1,13 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var _mongoose = require('mongoose');
 
-var DaySchema = new Schema({
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Schema = _mongoose2.default.Schema,
+    DaySchema = new Schema({
   day: Number,
   month: Number,
   percentageComplete: Number,
@@ -26,4 +30,4 @@ var DaySchema = new Schema({
   }]
 });
 
-module.exports = mongoose.model('Day', DaySchema);
+module.exports = _mongoose2.default.model('Day', DaySchema);

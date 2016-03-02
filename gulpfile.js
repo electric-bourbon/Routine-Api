@@ -9,34 +9,21 @@ var notify      = require('gulp-notify');
 var plumber     = require('gulp-plumber');
 var jshint      = require('gulp-jshint');
 var stylish     = require('jshint-stylish');
-var babel = require('gulp-babel');
-var babelify    = require('babelify');
+var babel       = require('gulp-babel');
 var source      = require('vinyl-source-stream');
-var browserify  = require('browserify');
-var streamify   = require('gulp-streamify');
-
-gulp.task('babelify', function() {
-  browserify({ entries: './server.js', debug: true })
-  .transform(babelify)
-  .bundle()
-  .on("error", function (err) { console.log(err.message); })
-  .pipe(source('app.js'))
-  // .pipe(streamify(uglify()))
-  .pipe(gulp.dest('./dist/'));
-});
 
 gulp.task('build', function() {
 return gulp.src(['./**/*.js', '!./node_modules/**/*.js', '!./dist/**/*.js'])
-.pipe(babel({
+  .pipe(babel({
             presets: ['es2015']
         }))
-.pipe(gulp.dest('./dist/'));
+  .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('hint:js', jsHint);
+gulp.task('lint', jsHint);
 gulp.task('watch', ['watchlist']);
 gulp.task('watchlist', function() {
-  gulp.watch(['./app/**/*.js', '!./dist/app.js', './server.js'],  ['hint:js', 'babelify']);
+  gulp.watch(['./app/**/*.js', '!./dist/app.js', './server.js'],  ['hint:js']);
 });
 
 function notifyError() {

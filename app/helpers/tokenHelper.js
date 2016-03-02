@@ -1,7 +1,7 @@
 
-var jwt         = require('jsonwebtoken');
-var config      = require('../../config');
-var superSecret = config.secret;
+import jwt from 'jsonwebtoken';
+import config from '../../config';
+const superSecret = config.secret;
 
 function verifyToken(req, res, next){
       var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -26,4 +26,4 @@ function verifyToken(req, res, next){
 }
 
 
-module.exports = verifyToken;
+export default verifyToken;

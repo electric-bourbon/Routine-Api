@@ -1,7 +1,7 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+import mongoose from 'mongoose';
+const Schema       = mongoose.Schema;
 
-var MonthSchema  = new Schema({
+const MonthSchema  = new Schema({
   month: Number,
   year: Number,
   days: [

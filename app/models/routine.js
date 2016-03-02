@@ -1,7 +1,7 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+import mongoose from 'mongoose';
+const Schema       = mongoose.Schema;
 
-var RoutineSchema  = new Schema({
+const RoutineSchema  = new Schema({
   routineName: String,
   status: Number,
   completed: Boolean,

@@ -13,7 +13,7 @@ const  app        = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
@@ -36,7 +36,7 @@ const userRoutes = userRoute(app, express);
 app.use('/api', userRoutes);
 
 // Exception handling
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   if(err.status === 404) {
     res.status(404);
     res.json({errorMessage: err.message || 'Not found'});
@@ -50,7 +50,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   console.log('Internal server error ' + err)
   res.status(500);
   res.json({errorMessage: err.message || 'oops! something broke'});
@@ -59,7 +59,7 @@ app.use(function(err, req, res, next) {
 // MAIN CATCHALL ROUTE ---------------
 // SEND USERS TO FRONTEND ------------
 // has to be registered after API ROUTES
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 

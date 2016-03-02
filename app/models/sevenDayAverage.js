@@ -1,7 +1,7 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+import mongoose from 'mongoose';
+const Schema       = mongoose.Schema;
 
-var SevenDayAverageSchema  = new Schema({
+const SevenDayAverageSchema  = new Schema({
   SevenDayAverageName: String,
   status: Number,
   completed: Boolean,

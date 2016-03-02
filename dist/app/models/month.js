@@ -1,7 +1,12 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Schema = _mongoose2.default.Schema;
 
 var MonthSchema = new Schema({
   month: Number,
@@ -15,4 +20,4 @@ var MonthSchema = new Schema({
   userId: String
 });
 
-module.exports = mongoose.model('Month', MonthSchema);
+module.exports = _mongoose2.default.model('Month', MonthSchema);
