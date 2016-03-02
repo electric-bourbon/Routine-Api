@@ -26,7 +26,7 @@ gulp.task('babelify', function() {
 });
 
 gulp.task('build', function() {
-return gulp.src('./server.js')
+return gulp.src('./**/*.js')
 .pipe(babel())
 .pipe(gulp.dest('./dist/'));
 });
