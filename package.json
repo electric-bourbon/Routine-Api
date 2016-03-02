@@ -1,0 +1,25 @@
+{
+  "name": "RoutineApi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "4.3.1",
+    "npm": "2.14.12"
+  },
+  "author": "Matrix Peeps",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "cors": "^2.7.1",
+    "jsonwebtoken": "^5.4.0",
+    "moment": "^2.10.6",
+    "mongoose": "^4.1.10",
+    "morgan": "^1.6.1"
+  }
+}
