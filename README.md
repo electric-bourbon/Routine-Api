@@ -2,7 +2,7 @@
 
 > API for Routine app
 
-* Currently running on: (no deployment yet)
+* Currently running on: https://guarded-meadow-42200.herokuapp.com/
 
 ## Development
 
