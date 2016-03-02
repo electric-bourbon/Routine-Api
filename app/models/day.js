@@ -5,7 +5,7 @@ var DaySchema  = new Schema({
   day: Number,
   month: Number,
   percentageComplete: Number,
-  userId: String
+  userId: String,
   routines: [
     {
       name: String,

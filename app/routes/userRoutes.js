@@ -1,8 +1,8 @@
 import bodyParser from 'body-parser';
-import User from '../models/user');
-import jwt  from 'jsonwebtoken');
-import config from '../../config');
-import verifyToken from '../helpers/tokenHelper');
+import User from '../models/user';
+import jwt  from 'jsonwebtoken';
+import config from '../../config';
+import verifyToken from '../helpers/tokenHelper';
 const superSecret = config.secret;
 
 
@@ -60,9 +60,9 @@ function UserRoutes(app, express) {
 	      // check if password matches
 	      var validPassword = user.comparePassword(req.body.password);
 	      if (!validPassword) {
-	        var notFound = new Error("Password was incorrect.");
-          notFound.status = 403;
-            return next(notFound);
+	        var incorrectPassword = new Error("Password was incorrect.");
+          incorrectPassword.status = 403;
+            return next(incorrectPassword);
 	      } else {
 	        // if user is found and password is right
 	        // create a token
@@ -146,7 +146,7 @@ function UserRoutes(app, express) {
 				// save the user
 				user.save(function(err) {
 					if (err) {
-		              next(err)
+		              next(err);
 		      }
 		      console.log("Updating user " + user);
 					res.json({ message: 'User updated!' });
@@ -181,6 +181,6 @@ function UserRoutes(app, express) {
 	});
 
 	return userRouter;
-};
+}
 
 export default UserRoutes;
