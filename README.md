@@ -8,14 +8,20 @@
 
 ### Prerequisites
 * [Node js](http://nodejs.org/) and NPM
-* [Nodemon](http://nodemon.io/)
+* [Gulp](http://gulpjs.com/)
 
-If you're new to Nodemon you can install it globally with npm
+If you're new to Gulp you can install it globally with npm
 
 ```sh
-$ npm install -g nodemon
+$ npm install --global gulp-cli
 ```
-To get started run `nodemon server.js` to kick off the server. Nodemon will reload the server on every save.
+
+#### Running the Gulpfile (Linting)
+1. In the command prompt navigate to the root folder and key `npm install`
+2. Then run `gulp watch` to run the linter live
+3. Or run 'gulp lint' before pushing code
+
+While developing run `npm start` to run babel, runs on `http://localhost:8080/`
 
 ## Routes
 
