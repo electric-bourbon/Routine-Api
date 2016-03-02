@@ -1,21 +1,17 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+import mongoose from 'mongoose';
+const Schema       = mongoose.Schema;
 
-var RoutineSchema  = new Schema({
+const RoutineSchema  = new Schema({
   routineName: String,
+  routineStyle: String, // '4-day',  'complex'
   status: Number,
   completed: Boolean,
   startDate: Number,
   endDate: Number,
-  subRoutines: [
-    {
-      id: String,
-      name: String
-    }
-  ],
   createdDate: Number,
   modifiedDate: Number,
-  userId: String
+  userId: String,
+
 });
 
 module.exports = mongoose.model('Routine', RoutineSchema);
