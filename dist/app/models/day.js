@@ -13,9 +13,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Schema = _mongoose2.default.Schema,
     DaySchema = new Schema({
     routineId: String,
-    day: Number,
-    month: Number,
-    completed: Boolean,
+    subRoutineId: String,
+    date: Number,
+    value: Number,
     userId: String
 });
 
