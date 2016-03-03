@@ -33,10 +33,7 @@ function UserRoutes(app, express) {
 	var userRouter = express.Router();
 
 	// ----------------------------------------------------
-	userRouter.route('/users')
-
-	// create a user (accessed at POST http://localhost:8080/users)
-	.post(function (req, res, next) {
+	userRouter.route('/users').post(function (req, res, next) {
 
 		var user = new _user2.default(); // create a new instance of the User model
 		user.name = req.body.name; // set the users name (comes from the request)
@@ -44,7 +41,7 @@ function UserRoutes(app, express) {
 		user.password = req.body.password; // set the users password (comes from the request)
 		user.email = req.body.email;
 
-		console.log("Creating new user: " + user);
+		console.log('Creating new user: ' + user);
 
 		user.save(function (err) {
 			if (err) {
@@ -53,9 +50,10 @@ function UserRoutes(app, express) {
 					var userExists = new Error("The user with that username already exists!");
 					userExists.status = 500;
 					return next(userExists);
-				} else return next(err);
+				} else console.log('Error creating user : ' + err);
+				return next(err);
 			}
-			// return a message
+			console.log("User Created");
 			res.json({ message: 'User created!' });
 		});
 	});
@@ -92,7 +90,7 @@ function UserRoutes(app, express) {
 					}, superSecret, {
 						expiresIn: 172800 // expires in 24 hours
 					});
-					console.log('User logged in' + user);
+					console.log('User logged in: ' + user);
 					// return the information including token as JSON
 					res.json({
 						success: true,
@@ -110,18 +108,13 @@ function UserRoutes(app, express) {
 		(0, _tokenHelper2.default)(req, res, next);
 	});
 
-	// test route to make sure everything is working
-	// accessed at GET http://localhost:8080/api
-	userRouter.get('/', function (req, res) {
-		res.json({ message: 'hooray! welcome to our api!' });
-	});
-
 	// on routes that end in /users
 	// ----------------------------------------------------
 	userRouter.route('/users').get(function (req, res, next) {
 
 		_user2.default.find({}, function (err, users) {
 			if (err) {
+				console.log('Error getting users: ' + err);
 				return next(err);
 			}
 			// return the users
@@ -138,9 +131,10 @@ function UserRoutes(app, express) {
 			}
 
 			if (err) {
+				console.log('Error deleting user: ' + err);
 				next(err);
 			}
-			console.log('Retrieving user ' + user);
+			console.log('Retrieving user: ' + user);
 			// return that user
 			res.json(user);
 		});
@@ -151,6 +145,7 @@ function UserRoutes(app, express) {
 		_user2.default.findById(req.params.user_id, function (err, user) {
 
 			if (err) {
+				console.log('Error updating user: ' + err);
 				next(err);
 			}
 
@@ -164,7 +159,7 @@ function UserRoutes(app, express) {
 				if (err) {
 					next(err);
 				}
-				console.log("Updating user " + user);
+				console.log('Updating user: ' + user);
 				res.json({ message: 'User updated!' });
 			});
 		});
@@ -180,8 +175,10 @@ function UserRoutes(app, express) {
 			}
 
 			if (err) {
+				console.log('Error deleting user: ' + err);
 				next(err);
 			}
+			console.log("User deleted");
 			res.json({ message: 'Successfully deleted' });
 		});
 	});

@@ -2,20 +2,14 @@
 
 > API for Routine app
 
-* Currently running on: (no deployment yet)
+* Currently running on: https://stark-peak-45925.herokuapp.com/
 
 ## Development
 
 ### Prerequisites
 * [Node js](http://nodejs.org/) and NPM
-* [Nodemon](http://nodemon.io/)
 
-If you're new to Nodemon you can install it globally with npm
-
-```sh
-$ npm install -g nodemon
-```
-To get started run `nodemon server.js` to kick off the server. Nodemon will reload the server on every save.
+To get started run `npm start` to kick off the server. Nodemon will reload the server on every save.
 
 ## Routes
 

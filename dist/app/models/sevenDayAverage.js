@@ -1,5 +1,8 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -11,4 +14,4 @@ var SevenDayAverageSchema = new Schema({
   userId: String
 });
 
-module.exports = mongoose.model('SevenDayAverage', SevenDayAverageSchema);
+exports.default = mongoose.model('SevenDayAverage', SevenDayAverageSchema);

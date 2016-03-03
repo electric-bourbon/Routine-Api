@@ -1,5 +1,8 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -14,4 +17,4 @@ var YearSchema = new Schema({
   userId: String
 });
 
-module.exports = mongoose.model('Year', YearSchema);
+exports.default = mongoose.model('Year', YearSchema);
