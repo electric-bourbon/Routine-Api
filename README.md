@@ -2,7 +2,7 @@
 
 > API for Routine app
 
-* Currently running on: (no deployment yet)
+* Currently running on: https://stark-peak-45925.herokuapp.com/
 
 ## Development
 
