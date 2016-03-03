@@ -40,9 +40,15 @@ var _routineRoutes = require('./app/routes/routineRoutes');
 
 var _routineRoutes2 = _interopRequireDefault(_routineRoutes);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _subRoutineRoutes = require('./app/routes/subRoutineRoutes');
 
-// API ROUTES ------------------------
+var _subRoutineRoutes2 = _interopRequireDefault(_subRoutineRoutes);
+
+var _dayRoutes = require('./app/routes/dayRoutes');
+
+var _dayRoutes2 = _interopRequireDefault(_dayRoutes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
 
@@ -68,11 +74,16 @@ _mongoose2.default.connect(_config2.default.database);
 // used for requests that our frontend will make
 app.use(_express2.default.static(__dirname + '/public'));
 
+// -- API ROUTES ---
 var userRoutes = (0, _userRoutes2.default)(app, _express2.default),
-    routineRoutes = (0, _routineRoutes2.default)(app, _express2.default);
+    routineRoutes = (0, _routineRoutes2.default)(app, _express2.default),
+    subRoutineRoutes = (0, _subRoutineRoutes2.default)(app, _express2.default),
+    dayRoutes = (0, _dayRoutes2.default)(app, _express2.default);
 
 app.use('/api', userRoutes);
 app.use('/api', routineRoutes);
+app.use('/api', subRoutineRoutes);
+app.use('/api', dayRoutes);
 
 // Exception handling
 app.use(function (err, req, res, next) {

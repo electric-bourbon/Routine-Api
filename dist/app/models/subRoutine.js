@@ -14,6 +14,7 @@ var Schema = _mongoose2.default.Schema,
     SubRoutineSchema = new Schema({
     name: String,
     desiredFrequency: Number,
+    style: String,
     routineId: String,
     createdDate: Number,
     modifiedDate: Number,

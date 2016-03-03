@@ -30,7 +30,7 @@ function RoutineRoutes(app, express) {
         var routine = new _routine2.default();
         routine.name = req.body.name;
         routine.style = req.body.style;
-        routine.desiredFrequency = req.body.desiredFrequency;
+        routine.desiredFrequency = routine.style === '4-day' ? 4 : req.body.desiredFrequency;
         routine.startDate = req.body.startDate;
         routine.createdDate = (0, _moment2.default)().valueOf();
         routine.modifiedDate = (0, _moment2.default)().valueOf();
@@ -45,7 +45,8 @@ function RoutineRoutes(app, express) {
             }
             console.log("routine Created");
             res.json({
-                message: 'routine created!'
+                message: 'routine created!',
+                routine: routine
             });
         });
     }).get(function (req, res, next) {
