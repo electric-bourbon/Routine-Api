@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _mongoose = require('mongoose');
@@ -13,16 +13,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Schema = _mongoose2.default.Schema;
 
 var RoutineSchema = new Schema({
-  routineName: String,
-  routineStyle: String, // '4-day',  'complex'
-  status: Number,
-  completed: Boolean,
-  startDate: Number,
-  endDate: Number,
-  createdDate: Number,
-  modifiedDate: Number,
-  userId: String
-
+    name: String,
+    style: String, // '4-day',  'complex'
+    startDate: Number,
+    desiredFrequency: Number,
+    createdDate: Number,
+    modifiedDate: Number,
+    userId: String
 });
 
 exports.default = _mongoose2.default.model('Routine', RoutineSchema);

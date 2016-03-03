@@ -46,14 +46,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
-app.use(_bodyParser2.default.urlencoded({ extended: true }));
+app.use(_bodyParser2.default.urlencoded({
+    extended: true
+}));
 app.use(_bodyParser2.default.json());
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-  next();
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
 });
 
 app.use((0, _cors2.default)());
@@ -74,31 +76,36 @@ app.use('/api', routineRoutes);
 
 // Exception handling
 app.use(function (err, req, res, next) {
-  if (err.status === 404) {
-    res.status(404);
-    res.json({ errorMessage: err.message || 'Not found' });
-  } else if (err.status === 403) {
-    res.status(403);
-    res.json({ errorMessage: err.message || "Request forbidden" });
-  } else {
-    return next(err);
-  }
+    if (err.status === 404) {
+        res.status(404);
+        res.json({
+            errorMessage: err.message || 'Not found'
+        });
+    } else if (err.status === 403) {
+        res.status(403);
+        res.json({
+            errorMessage: err.message || "Request forbidden"
+        });
+    } else {
+        return next(err);
+    }
 });
 
 app.use(function (err, req, res, next) {
-  console.log('Internal server error ' + err);
-  res.status(500);
-  res.json({ errorMessage: err.message || 'oops! something broke' });
+    console.log('Internal server error ' + err);
+    res.status(500);
+    res.json({
+        errorMessage: err.message || 'oops! something broke'
+    });
 });
 
 // MAIN CATCHALL ROUTE ---------------
 // SEND USERS TO FRONTEND ------------
-// has to be registered after API ROUTES
+// TODO create index.html
 app.get('*', function (req, res) {
-  res.sendFile(_path2.default.join(__dirname + '/public/app/views/index.html'));
+    res.sendFile(_path2.default.join(__dirname + '/public/app/views/index.html'));
 });
 
-// START THE SERVER
 // ====================================
 app.listen(_config2.default.port);
 console.log('Running on ' + _config2.default.port + '...');

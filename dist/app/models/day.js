@@ -1,32 +1,22 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-var DaySchema = new Schema({
-  day: Number,
-  month: Number,
-  percentageComplete: Number,
-  userId: String,
-  routines: [{
-    name: String,
-    status: Number,
-    completed: Boolean,
-    updated: Boolean,
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Schema = _mongoose2.default.Schema,
+    DaySchema = new Schema({
     routineId: String,
-    subRoutine: [{
-      name: String,
-      status: Number,
-      completed: Boolean,
-      updated: Boolean,
-      subRoutineId: String,
-      desiredFrequency: Number,
-      currentCount: Number
-    }]
-  }]
+    day: Number,
+    month: Number,
+    completed: Boolean,
+    userId: String
 });
 
-exports.default = mongoose.model('Day', DaySchema);
+exports.default = _mongoose2.default.model('Day', DaySchema);
