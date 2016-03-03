@@ -1,5 +1,8 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -26,4 +29,4 @@ var DaySchema = new Schema({
   }]
 });
 
-module.exports = mongoose.model('Day', DaySchema);
+exports.default = mongoose.model('Day', DaySchema);

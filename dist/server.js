@@ -36,11 +36,15 @@ var _userRoutes = require('./app/routes/userRoutes');
 
 var _userRoutes2 = _interopRequireDefault(_userRoutes);
 
+var _routineRoutes = require('./app/routes/routineRoutes');
+
+var _routineRoutes2 = _interopRequireDefault(_routineRoutes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)();
 // API ROUTES ------------------------
 
+var app = (0, _express2.default)();
 
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
@@ -62,9 +66,11 @@ _mongoose2.default.connect(_config2.default.database);
 // used for requests that our frontend will make
 app.use(_express2.default.static(__dirname + '/public'));
 
-var userRoutes = (0, _userRoutes2.default)(app, _express2.default);
+var userRoutes = (0, _userRoutes2.default)(app, _express2.default),
+    routineRoutes = (0, _routineRoutes2.default)(app, _express2.default);
 
 app.use('/api', userRoutes);
+app.use('/api', routineRoutes);
 
 // Exception handling
 app.use(function (err, req, res, next) {

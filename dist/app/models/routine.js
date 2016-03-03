@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
@@ -21,4 +25,4 @@ var RoutineSchema = new Schema({
 
 });
 
-module.exports = _mongoose2.default.model('Routine', RoutineSchema);
+exports.default = _mongoose2.default.model('Routine', RoutineSchema);
