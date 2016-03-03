@@ -116,14 +116,6 @@ function RoutineRoutes(app, express) {
       res.json({ message: 'Successfully deleted' });
     });
   });
-  // route middleware to verify a token
-  routineRouter.use('/me', function (req, res, next) {
-    (0, _tokenHelper2.default)(req, res, next);
-  });
-  // api endpoint to get routine information
-  routineRouter.get('/me', function (req, res) {
-    res.send(req.decoded);
-  });
 
   return routineRouter;
 }
