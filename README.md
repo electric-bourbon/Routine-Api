@@ -129,3 +129,80 @@ Example Success (Code 200 -OK):
   "message" : "Successfully Deleted"
 }
 ```
+
+#### Creating a Routine
+
+**Route:** `POST api/routines`
+
+**Params:**
+
+| Parameter         |  Type         |
+| ---------         |  ----         |
+|  name             | String        |
+|  style            | String        |
+|  desiredFrequency | Number        |
+|  startDate        | unixTimestamp |
+
+Example Success (Code 200 -OK):
+
+```json
+{
+  "message": "routine created!",
+  "routine": {
+    "__v": 0,
+    "userId": "56d7baa3db2a93c7fbde4283",
+    "modifiedDate": 1457040918187,
+    "createdDate": 1457040918186,
+    "startDate": 1457040839535,
+    "desiredFrequency": 4,
+    "style": "4-day",
+    "name": "workout",
+    "_id": "56d8ae16f85b1ca5134ee207"
+  }
+}
+```
+```json
+{
+  "message": "subRoutine created!",
+  "subRoutine": {
+    "__v": 0,
+    "userId": "56d7baa3db2a93c7fbde4283",
+    "modifiedDate": 1457041695726,
+    "createdDate": 1457041695725,
+    "routineId": "56d8ae88043411cb13bfc7b4",
+    "desiredFrequency": 4,
+    "style": "4-day",
+    "name": "bench press",
+    "_id": "56d8b11fbb2d6424146418d7"
+  }
+}
+```
+
+```json
+{
+  "message": "day created!",
+  "day": {
+    "__v": 0,
+    "userId": "56d7baa3db2a93c7fbde4283",
+    "routineId": "56d8ae88043411cb13bfc7b4",
+    "value": 2,
+    "date": 1457040839535,
+    "_id": "56d8b46f4e5df96914bbe9eb"
+  }
+}
+```
+
+```json
+{
+  "message": "day created!",
+  "day": {
+    "__v": 0,
+    "userId": "56d7baa3db2a93c7fbde4283",
+    "subRoutineId": "56d8b10abb2d6424146418d6",
+    "routineId": "56d8ae88043411cb13bfc7b4",
+    "value": 2,
+    "date": 1457040839535,
+    "_id": "56d8b44f4e5df96914bbe9ea"
+  }
+}
+```

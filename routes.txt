@@ -1,19 +1,8 @@
 /routines
 GET - gets all routines for a user
 POST - creates a routine
-  body = {
-          routineName: String,
-          routineStyle: String, // '4-day',  'complex'
-          status: Number,
-          completed: Boolean,
-          startDate: Number,
-          endDate: Number,
-          createdDate: Number,
-          modifiedDate: Number,
-          userId: String,
-        }
 
-/routines/routine_id
+/routines/:routine_id
 GET - gets single routine
 PUT - edits routine
   body is same as post
@@ -21,5 +10,25 @@ DELETE - deletes routine
 
 
 /routines/routine_id/subRoutines
+GET - gets all subroutines for given routine id
+POST - creates a subroutine for routine id
 
-/routines/routine_id/subRoutines/subRoutine_id
+/routines/routine_id/subRoutines/:subRoutine_id
+PUT updates subRoutine
+DELETE deletes subRoutine
+
+/routines/routine_id/days
+POST creates a day record for routine id
+GET gets all days with routine id
+
+/routines/routine_id/days/:day_id
+PUT updates day
+DELETE deletes day
+
+/routines/routine_id/subRoutines/:subRoutine_id/days
+POST creates day for subroutine
+GET gets all days for subroutine
+
+/routines/routine_id/subRoutines/days/:subRoutine_id/:day_id
+PUT updates day
+DELETE deletes day
