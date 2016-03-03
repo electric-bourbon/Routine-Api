@@ -9,7 +9,10 @@
 ### Prerequisites
 * [Node js](http://nodejs.org/) and NPM
 
-To get started run `npm start` to kick off the server. Nodemon will reload the server on every save.
+#### Tasks
+* To get started run `npm start` to kick off the server. Nodemon will reload the server on every save.
+* Run `gulp lint` to lint the code or to keep it running the whole time run `gulp watch` in a separate terminal window
+* Before submitting a pull request run `npm run build` to ensure it will build correctly. Then run `npm run serve` to ensure it will run correctly.
 
 ## Routes
 
