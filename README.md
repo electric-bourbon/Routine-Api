@@ -143,6 +143,8 @@ Example Success (Code 200 -OK):
 |  desiredFrequency | Number        |
 |  startDate        | unixTimestamp |
 
+If `4-day` is listed as a style the desiredFrequency will default to 4.
+
 Example Success (Code 200 -OK):
 
 ```json
@@ -161,6 +163,36 @@ Example Success (Code 200 -OK):
   }
 }
 ```
+#### Getting Routines
+
+**Route:** `GET api/routines`
+
+Gets routines for the given userId
+
+**Route:** `GET api/routines/:routine_Id`
+
+Gets single routine
+
+
+#### Updating and Deleting Routines
+
+**Route:** `api/routines/:routine_Id/`
+
+PUT updates given routine, if value is passed up it will be updated
+
+DELETE deletes given routine
+
+
+#### Creating a Sub Routine
+
+**Route:** `POST api/routines/:routine_Id/subRoutines`
+
+**Params:** Same as creating a routine
+
+If `4-day` is listed as a style the desiredFrequency will default to 4.
+
+Example Success (Code 200 -OK):
+
 ```json
 {
   "message": "subRoutine created!",
@@ -178,6 +210,37 @@ Example Success (Code 200 -OK):
 }
 ```
 
+#### Getting SubRoutines
+
+**Route:** `GET api/routines/:routine_Id/subRoutines`
+
+Gets subRoutines for the given routine id
+
+**Route:** `GET api/routines/:routine_Id/subRoutines/:subRoutine_Id`
+
+Gets single subRoutine
+
+
+#### Updating and Deleting subRoutines
+
+**Route:** `api/routines/:routine_Id/subRoutines/:subRoutine_Id`
+
+PUT updates given subRoutine, if value is passed up it will be updated
+
+DELETE deletes given subRoutine
+
+
+#### Creating a Day for a Routine
+
+**Route:** `POST api/routines/:routine_Id/days`
+
+**Params:**
+
+| Parameter |  Type         |
+| --------- |  ----         |
+|  value    | Number        |
+|  date     | unixTimestamp |
+
 ```json
 {
   "message": "day created!",
@@ -191,6 +254,17 @@ Example Success (Code 200 -OK):
   }
 }
 ```
+
+#### Creating a Day for a SubRoutine
+
+**Route:** `POST api/routines/:routine_Id/subRoutines/:subRoutine_Id/days`
+
+**Params:**
+
+| Parameter |  Type         |
+| --------- |  ----         |
+|  value    | Number        |
+|  date     | unixTimestamp |
 
 ```json
 {
@@ -206,3 +280,35 @@ Example Success (Code 200 -OK):
   }
 }
 ```
+
+#### Getting Days
+
+**Route:** `GET api/routines/:routine_Id/days`  
+
+Gets days for the given routine id
+
+**Route:** `GET api/routines/:routine_Id/subRoutines/:subRoutine_Id/days`
+
+Gets days for subroutine
+
+**Route:** `GET api/days/:day_id`
+
+Gets day
+
+
+#### Updating and Deleting Days
+**Route:** `api/days/:day_id`
+
+PUT updates given day, if value is passed up it will be updated
+
+DELETE deletes given day
+
+#### Endpoints to make
+
+`api/routines/:routine_Id/sevenDayMovingAverage`
+
+`api/routines/:routine_Id/monthlyAverage`
+
+`api/routines/:routine_Id/yearAverage`
+
+(same at subRoutine level)
