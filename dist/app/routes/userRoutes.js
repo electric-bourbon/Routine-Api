@@ -60,7 +60,7 @@ function UserRoutes(app, express) {
         });
     });
 
-    userRouter.post('/login', function (req, res, next) {
+    userRouter.post('users/login', function (req, res, next) {
 
         // find the user
         _user2.default.findOne({
