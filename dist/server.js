@@ -69,7 +69,7 @@ app.use((0, _morgan2.default)('dev'));
 
 //database connection
 _mongoose2.default.connect(_config2.default.database);
-
+// mongoose.connect('mongodb://localhost/routine');
 // set static files location
 // used for requests that our frontend will make
 app.use(_express2.default.static(__dirname + '/public'));
