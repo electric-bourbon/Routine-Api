@@ -51,17 +51,16 @@ function UserRoutes(app, express) {
     var userRouter = express.Router();
 
     userRouter.route('/users').post(function (req, res, next) {
-        var userModel = req.body,
-            user = UserManager.createUser(userModel, next);
-
-        res.json({
-            message: 'User created!',
-            user: user
+        var userModel = req.body;
+        UserManager.createUser(userModel, next).then(function (user) {
+            res.json({
+                message: 'User created!',
+                user: user
+            });
         });
     });
 
-    userRouter.post('/login', function (req, res, next) {
-
+    userRouter.post('/users/login', function (req, res, next) {
         // find the user
         _user2.default.findOne({
             email: req.body.email
@@ -89,9 +88,7 @@ function UserRoutes(app, express) {
                         name: user.name,
                         id: user._id,
                         email: user.email
-                    }, superSecret, {
-                        expiresIn: 172800 // expires in 24 hours
-                    });
+                    }, superSecret);
                     console.log('User logged in: ' + user);
                     // return the information including token as JSON
                     res.json({
@@ -118,25 +115,30 @@ function UserRoutes(app, express) {
     });
 
     userRouter.route('/users/:user_id').get(function (req, res, next) {
-        var userId = req.params.user_id,
-            user = UserManager.getUser(userId, next);
-        res.json(user);
+        var userId = req.params.user_id;
+        UserManager.getUser(userId, next).then(function (day) {
+            res.json(user);
+        });
     }).put(function (req, res, next) {
         var userId = req.params.user_id,
             userModel = req.body;
-        UserManager.updateUser(userId, next);
-        res.json({
-            message: 'User updated!'
+        UserManager.updateUser(userId, userModel, next).then(function () {
+            res.json({
+                message: 'User updated!'
+            });
         });
     }).delete(function (req, res, next) {
         var userId = req.params.user_id;
-        DayManager.deleteAllDays(userId, next);
-        SubRoutineManager.deleteAllSubRoutines(userId, next);
-        RoutineManager.deleteAllRoutines(userId, next);
-        UserManager.deleteUser(userId, next);
-
-        res.json({
-            message: 'Successfully deleted'
+        DayManager.deleteAllDaysForUser(userId, next).then(function () {
+            SubRoutineManager.deleteAllSubRoutinesForUser(userId, next);
+        }).then(function () {
+            RoutineManager.deleteAllRoutinesForUser(userId, next);
+        }).then(function () {
+            UserManager.deleteUser(userId, next);
+        }).then(function () {
+            res.json({
+                message: 'Successfully deleted'
+            });
         });
     });
 

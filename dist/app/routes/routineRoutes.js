@@ -8,6 +8,14 @@ var _routineManager = require('../managers/routineManager');
 
 var RoutineManager = _interopRequireWildcard(_routineManager);
 
+var _subRoutineManager = require('../managers/subRoutineManager');
+
+var SubRoutineManager = _interopRequireWildcard(_subRoutineManager);
+
+var _dayManager = require('../managers/dayManager');
+
+var DayManager = _interopRequireWildcard(_dayManager);
+
 var _tokenHelper = require('../helpers/tokenHelper');
 
 var _tokenHelper2 = _interopRequireDefault(_tokenHelper);
@@ -55,7 +63,11 @@ function RoutineRoutes(app, express) {
         });
     }).delete(function (req, res, next) {
         var routineId = req.params.routine_id;
-        RoutineManager.deleteRoutine(routineId, next).then(function () {
+        DayManager.deleteAllDaysForRoutine(routineId, next).then(function () {
+            SubRoutineManager.deleteAllSubRoutinesForRoutine(routineId, next);
+        }).then(function () {
+            RoutineManager.deleteRoutine(routineId, next);
+        }).then(function () {
             res.json({
                 message: 'Successfully deleted'
             });

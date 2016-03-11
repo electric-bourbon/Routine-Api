@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.updateSubRoutine = exports.getSubRoutines = exports.getSubRoutine = exports.deleteAllSubRoutines = exports.deleteSubRoutine = exports.createSubRoutine = undefined;
+exports.updateSubRoutine = exports.getSubRoutines = exports.getSubRoutine = exports.deleteAllSubRoutinesForRoutine = exports.deleteAllSubRoutinesForUser = exports.deleteSubRoutine = exports.createSubRoutine = undefined;
 
 var _subRoutine = require('../models/subRoutine');
 
@@ -15,10 +15,19 @@ var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function deleteAllSubRoutines(userId, next) {
-    _subRoutine2.default.remove({ userId: userId }, function (err, routine) {
+function deleteAllSubRoutinesForUser(userId, next) {
+    return _subRoutine2.default.remove({ userId: userId }, function (err, routine) {
         if (err) {
-            console.log('Error deleting routine: ' + err);
+            console.log('Error deleting routines: ' + err);
+            next(err);
+        }
+    });
+}
+
+function deleteAllSubRoutinesForRoutine(routineId, next) {
+    return _subRoutine2.default.remove({ routineId: routineId }, function (err, routine) {
+        if (err) {
+            console.log('Error deleting routines: ' + err);
             next(err);
         }
     });
@@ -144,7 +153,8 @@ var promises = {
 
 exports.createSubRoutine = createSubRoutine;
 exports.deleteSubRoutine = deleteSubRoutine;
-exports.deleteAllSubRoutines = deleteAllSubRoutines;
+exports.deleteAllSubRoutinesForUser = deleteAllSubRoutinesForUser;
+exports.deleteAllSubRoutinesForRoutine = deleteAllSubRoutinesForRoutine;
 exports.getSubRoutine = getSubRoutine;
 exports.getSubRoutines = getSubRoutines;
 exports.updateSubRoutine = updateSubRoutine;

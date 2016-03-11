@@ -19,7 +19,7 @@ function createUser(userModel, next) {
 
     console.log("Creating new user: " + user);
 
-    user.save(function (err) {
+    return user.save(function (err) {
         if (err) {
             // duplicate entry
             if (err.code == 11000) {
@@ -30,9 +30,8 @@ function createUser(userModel, next) {
             return next(err);
         }
         console.log("User Created");
+        return user;
     });
-
-    return user;
 }
 
 function getUsers(next) {
@@ -46,15 +45,14 @@ function getUsers(next) {
 }
 
 function getUser(userId, next) {
-    _user2.default.findById(userId, function (err, user) {
+    return promises.getUser(userId, function (err, user) {
         if (!user) {
             var notFound = new Error("User not found");
             notFound.status = 404;
             return next(notFound);
         }
-
         if (err) {
-            console.log("Error deleting user: " + err);
+            console.log("Error getting user: " + err);
             next(err);
         }
         console.log("Retrieving user: " + user);
@@ -63,7 +61,7 @@ function getUser(userId, next) {
 }
 
 function updateUser(userId, userModel, next) {
-    _user2.default.findById(userId, function (err, user) {
+    return promises.getUser(userId, function (err, user) {
 
         if (err) {
             console.log("Error updating user: " + err);
@@ -84,7 +82,7 @@ function updateUser(userId, userModel, next) {
 }
 
 function deleteUser(userId, next) {
-    _user2.default.remove({
+    return _user2.default.remove({
         _id: userId
     }, function (err, user) {
 
@@ -101,6 +99,18 @@ function deleteUser(userId, next) {
         console.log("User deleted");
     });
 }
+
+var promises = {
+    getUser: function getUser(userId, callback) {
+        return _user2.default.findById(userId, function (err, user) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, user);
+            }
+        });
+    }
+};
 
 exports.deleteUser = deleteUser;
 exports.createUser = createUser;

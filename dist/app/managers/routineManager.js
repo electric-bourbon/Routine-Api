@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.updateRoutine = exports.getRoutine = exports.getRoutines = exports.deleteAllRoutines = exports.deleteRoutine = exports.createRoutine = undefined;
+exports.updateRoutine = exports.getRoutine = exports.getRoutines = exports.deleteAllRoutinesForUser = exports.deleteRoutine = exports.createRoutine = undefined;
 
 var _routine = require('../models/routine');
 
@@ -108,8 +108,8 @@ function deleteRoutine(routineId, next) {
     });
 }
 
-function deleteAllRoutines(userId, next) {
-    _routine2.default.remove({
+function deleteAllRoutinesForUser(userId, next) {
+    return _routine2.default.remove({
         userId: userId
     }, function (err, routine) {
         if (err) {
@@ -144,7 +144,7 @@ var promises = {
 };
 exports.createRoutine = createRoutine;
 exports.deleteRoutine = deleteRoutine;
-exports.deleteAllRoutines = deleteAllRoutines;
+exports.deleteAllRoutinesForUser = deleteAllRoutinesForUser;
 exports.getRoutines = getRoutines;
 exports.getRoutine = getRoutine;
 exports.updateRoutine = updateRoutine;
