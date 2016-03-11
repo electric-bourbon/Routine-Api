@@ -17,19 +17,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Schema = _mongoose2.default.Schema,
     UserSchema = new Schema({
     name: String,
-    username: {
-        type: String,
-        required: true,
-        index: {
-            unique: true
-        }
-    },
     password: {
         type: String,
         required: true,
         select: false
     },
-    email: String
+    email: {
+        type: String,
+        required: true,
+        index: {
+            unique: true
+        }
+    }
 });
 
 // hash the password before the user is saved

@@ -4,19 +4,17 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _day = require('../models/day');
+var _dayManager = require('../managers/dayManager');
 
-var _day2 = _interopRequireDefault(_day);
+var DayManager = _interopRequireWildcard(_dayManager);
 
 var _tokenHelper = require('../helpers/tokenHelper');
 
 var _tokenHelper2 = _interopRequireDefault(_tokenHelper);
 
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function DayRoutes(app, express) {
 
@@ -25,100 +23,41 @@ function DayRoutes(app, express) {
     dayRouter.use('/routines/:routine_id/days', function (req, res, next) {
         (0, _tokenHelper2.default)(req, res, next);
     });
+
     dayRouter.route('/routines/:routine_id/days').post(function (req, res, next) {
-
-        var day = new _day2.default();
-        day.date = req.body.date;
-        day.value = req.body.value;
-        day.routineId = req.params.routine_id;
-        day.createdDate = (0, _moment2.default)().valueOf();
-        day.modifiedDate = (0, _moment2.default)().valueOf();
-        day.userId = req.decoded.id;
-
-        console.log('Creating new day: ' + day);
-
-        day.save(function (err) {
-            if (err) {
-                console.log('Error creating day : ' + err);
-                return next(err);
-            }
-            console.log("day Created");
+        var userId = req.decoded.id,
+            dayModel = req.body,
+            routineId = req.params.routineId;
+        DayManager.createDayForRoutine(routineId, dayModel, userId, next).then(function (day) {
             res.json({
                 message: 'day created!',
                 day: day
             });
         });
     }).get(function (req, res, next) {
-        _day2.default.find({
-            userId: req.decoded.id,
-            routineId: req.params.routine_id
-        }, function (err, days) {
-            if (err) {
-                console.log('Error getting days: ' + err);
-                return next(err);
-            }
-            // return the days
+        var routineId = req.params.routine_Id,
+            userId = req.decoded.id;
+        DayManager.getDaysForRoutine(routineId, userId, next).then(function (days) {
             res.json(days);
         });
     });
 
     dayRouter.route('/days/:day_id').get(function (req, res, next) {
-        _day2.default.findById(req.params.day_id, function (err, day) {
-            if (!day) {
-                var notFound = new Error("day not found");
-                notFound.status = 404;
-                return next(notFound);
-            }
-
-            if (err) {
-                console.log('Error getting day: ' + err);
-                next(err);
-            }
-            console.log('Retrieving day: ' + day);
-            // return that day
+        var dayId = req.params.day_id;
+        DayManager.getDay(dayId, next).then(function (day) {
             res.json(day);
         });
-    })
-
-    // update the day with this id
-    .put(function (req, res, next) {
-        _day2.default.findById(req.params.day_id, function (err, day) {
-
-            if (err) {
-                console.log('Error updating day: ' + err);
-                next(err);
-            }
-
-            if (req.body.value) day.value = req.body.value;
-            if (req.body.date) day.date = req.body.date;
-            day.modifiedDate = (0, _moment2.default)().valueOf();
-            day.save(function (err) {
-                if (err) {
-                    next(err);
-                }
-                console.log('Updating day: ' + day);
-                res.json({
-                    message: 'day updated!',
-                    day: day
-                });
+    }).put(function (req, res, next) {
+        var dayId = req.params.day_id,
+            dayModel = req.body;
+        DayManager.updateDay(dayId, dayModel, next).then(function () {
+            res.json({
+                message: "day updated!"
             });
         });
     }).delete(function (req, res, next) {
-        _day2.default.remove({
-            _id: req.params.day_id
-        }, function (err, day) {
-
-            if (!day) {
-                var notFound = new Error("day not found");
-                notFound.status = 404;
-                return next(notFound);
-            }
-
-            if (err) {
-                console.log('Error deleting day: ' + err);
-                next(err);
-            }
-            console.log("day deleted");
+        var dayId = req.params.day_id;
+        DayManager.deleteDay(dayId, next).then(function () {
             res.json({
                 message: 'Successfully deleted'
             });
@@ -126,42 +65,22 @@ function DayRoutes(app, express) {
     });
 
     dayRouter.route('/routines/:routine_id/subRoutines/:subRoutine_id/days').post(function (req, res, next) {
-
-        var day = new _day2.default();
-        day.date = req.body.date;
-        day.value = req.body.value;
-        day.routineId = req.params.routine_id;
-        day.subRoutineId = req.params.subRoutine_id;
-        day.createdDate = (0, _moment2.default)().valueOf();
-        day.modifiedDate = (0, _moment2.default)().valueOf();
-        day.userId = req.decoded.id;
-
-        console.log('Creating new day: ' + day);
-
-        day.save(function (err) {
-            if (err) {
-                console.log('Error creating day : ' + err);
-                return next(err);
-            }
-            console.log("day Created");
+        var dayModel = req.body,
+            subRoutineId = req.params.subRoutine_id,
+            routineId = req.params.routine_id,
+            userId = req.decoded.id;
+        DayManager.createDayForSubRoutine(routineId, subRoutineId, dayModel, userId, next).then(function (day) {
             res.json({
                 message: 'day created!',
                 day: day
             });
         });
     }).get(function (req, res, next) {
-        _day2.default.find({
-            userId: req.decoded.id,
-            routineId: req.params.routine_id,
-            subRoutineId: req.params.subRoutine_id
+        var subRoutineId = req.params.subRoutine_id,
+            userId = req.decoded.id;
+        DayManager.getDaysForSubRoutine(subRoutineId, userId, next).then(function (days) {
+            res.json(days);
         });
-    }, function (err, days) {
-        if (err) {
-            console.log('Error getting days: ' + err);
-            return next(err);
-        }
-        // return the days
-        res.json(days);
     });
 
     return dayRouter;

@@ -16,7 +16,9 @@ var Schema = _mongoose2.default.Schema,
     subRoutineId: String,
     date: Number,
     value: Number,
-    userId: String
+    userId: String,
+    createdDate: Number,
+    modifiedDate: Number
 });
 
 exports.default = _mongoose2.default.model('Day', DaySchema);
